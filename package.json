@@ -1,0 +1,41 @@
+{
+  "name": "rest-api-express-mongodb-redis",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon --inspect src/index.js",
+    "test": "cross-env NODE_ENV=test tape test/**/*.test.js | tap-spec",
+    "start": "cross-env NODE_ENV=producton src/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "connect-redis": "^3.3.0",
+    "cross-env": "^5.0.1",
+    "debug": "^2.6.8",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.4",
+    "helmet": "^3.8.1",
+    "mongoose": "^4.10.5",
+    "morgan": "^1.8.2",
+    "redis": "^2.7.1",
+    "rotating-file-stream": "^1.2.2",
+    "uuid": "^3.1.0",
+    "winston": "^2.3.1",
+    "winston-daily-rotate-file": "^1.4.6"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "faucet": "^0.0.1",
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}
