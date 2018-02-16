@@ -7,12 +7,11 @@ const DB_NAME = process.env.DB_NAME;
 
 /* eslint-disable no-trailing-spaces */
 const config = {
-
   /* ENV */
   isDev: process.env.NODE_ENV === 'development',
   isTest: process.env.NODE_ENV === 'test',
   isProd: process.env.NODE_ENV === 'production',
-  
+
   /* SERVER */
   PORT: parseInt(process.env.PORT, 10) || 3000,
 
@@ -22,10 +21,10 @@ const config = {
   DB_PORT,
   DB_NAME,
   DB_URL: `${DB_PROTOCOL}://${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  
+
   /* REDIS */
   REDIS_HOST: process.env.REDIS_HOST,
-  REDIS_PORT: parseInt(process.env.REDIS_PORT, 10) || 6379, 
+  REDIS_PORT: parseInt(process.env.REDIS_PORT, 10) || 6379,
 
   /* LOG */
   LOG_LEVEL: process.env.LOG_LEVEL,

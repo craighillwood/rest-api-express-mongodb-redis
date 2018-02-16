@@ -8,16 +8,19 @@ const loggerDispatcher = 'Index';
 
 process.on('unhandledRejection', (err, promise) => {
   // if (err.operational === true)
-  logger.warn(err, { dispatcher: loggerDispatcher, from: 'unhandledRejection event' });
+  logger.warn(err, {
+    dispatcher: loggerDispatcher,
+    from: 'unhandledRejection event',
+  });
 });
 
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
   logger.error(err, { dispatcher: loggerDispatcher, from: 'uncaughtException event' }, () => {
     process.exit(1);
   });
 });
 
-server.on('error', (err) => {
+server.on('error', err => {
   if (err.syscall !== 'listen') {
     throw err;
   }
@@ -42,5 +45,7 @@ server.on('error', (err) => {
 });
 
 server.listen(PORT, 'localhost', () => {
-  logger.info(`Listening on port ${PORT}`, { dispadispatcher: loggerDispatcher });
+  logger.info(`Listening on port ${PORT}`, {
+    dispadispatcher: loggerDispatcher,
+  });
 });

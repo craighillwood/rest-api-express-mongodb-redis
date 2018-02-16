@@ -25,18 +25,21 @@ const init = () => {
       logger.warn('reconnected', { dispatcher: loggerDispatcher });
     });
 
-    mongoose.connection.on('error', (err) => {
+    mongoose.connection.on('error', err => {
       connected = false;
       logger.error(err, { dispatcher: loggerDispatcher, from: 'error event' });
     });
   });
 
-  mongoose.connect(DB_URL)
+  mongoose
+    .connect(DB_URL)
     .then(() => {
       connected = true;
       logger.info('connected', { dispatcher: loggerDispatcher });
     })
-    .catch(err => logger.error(err, { dispatcher: loggerDispatcher, from: 'catch' }));
+    .catch(err =>
+      logger.error(err, { dispatcher: loggerDispatcher, from: 'catch' }),
+    );
 };
 
 module.exports = {
