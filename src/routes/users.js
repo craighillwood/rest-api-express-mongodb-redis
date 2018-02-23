@@ -9,7 +9,7 @@ const jsonParser = bodyParser.json();
 // get all users
 router.get('/', (req, res, next) => {
   User.getAll()
-    .then((users) => {
+    .then(users => {
       res.send({
         status: 200,
         data: users,
@@ -22,8 +22,9 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   const { id } = req.params;
 
-  User.findById(id).exec()
-    .then((user) => {
+  User.findById(id)
+    .exec()
+    .then(user => {
       const status = user === null ? 404 : 200;
 
       res.status(status).send({
@@ -37,7 +38,7 @@ router.get('/:id', (req, res, next) => {
 // create user
 router.post('/', jsonParser, (req, res, next) => {
   User.create(req.body)
-    .then((user) => {
+    .then(user => {
       res.status(201).send({
         status: 201,
         data: user,
@@ -51,8 +52,9 @@ router.put('/:id', jsonParser, (req, res, next) => {
   const { id } = req.params;
   const { body } = req;
 
-  User.findByIdAndUpdate(id, body).exec()
-    .then((user) => {
+  User.findByIdAndUpdate(id, body)
+    .exec()
+    .then(user => {
       res.send({
         status: 200,
         data: user,
@@ -65,8 +67,9 @@ router.put('/:id', jsonParser, (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   const { id } = req.params;
 
-  User.findByIdAndRemove(id).exec()
-    .then((user) => {
+  User.findByIdAndRemove(id)
+    .exec()
+    .then(user => {
       res.send({
         status: 200,
         data: user,

@@ -25,24 +25,28 @@ userSchema.statics.getAll = function userGetAll() {
 
   /* eslint-disable consistent-return */
   return new Promise((resolve, reject) => {
-    redis.getAsync('users')
-      .then((data) => {
-        if (data) {
-          resolve(JSON.parse(data));
-        } else {
+    redis
+      .getAsync('users')
+      .then(
+        data => {
+          if (data) {
+            resolve(JSON.parse(data));
+          } else {
+            return Model.find().exec();
+          }
+        },
+        err => {
+          logger.error(err, { dispatcher: loggerDispatcher, from: 'userGetAll' });
           return Model.find().exec();
-        }
-      }, (err) => {
-        logger.error(err, { dispatcher: loggerDispatcher, from: 'userGetAll' });
-        return Model.find().exec();
-      })
-      .then((data) => {
+        },
+      )
+      .then(data => {
         if (data) {
           resolve(data);
           return data;
         }
       })
-      .then((data) => {
+      .then(data => {
         if (data) {
           redis.client.set('users', JSON.stringify(data), 'EX', 60);
         }

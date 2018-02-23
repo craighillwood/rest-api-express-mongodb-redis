@@ -37,9 +37,7 @@ const init = () => {
       connected = true;
       logger.info('connected', { dispatcher: loggerDispatcher });
     })
-    .catch(err =>
-      logger.error(err, { dispatcher: loggerDispatcher, from: 'catch' }),
-    );
+    .catch(err => logger.error(err, { dispatcher: loggerDispatcher, from: 'catch' }));
 };
 
 module.exports = {

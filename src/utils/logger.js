@@ -13,7 +13,7 @@ const logger = new winston.Logger({
     new winston.transports.Console({
       colorize: true,
       // json: true,
-      timestamp: () => (new Date()).toISOString(),
+      timestamp: () => new Date().toISOString(),
     }),
   ],
 });
