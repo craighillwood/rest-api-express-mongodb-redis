@@ -14,8 +14,9 @@ process.env.DB_NAME = 'restapi';
 
 // const isDBConnected = () => databaseConnected;
 
-test('Connect to database', (t) => {
-  mongoose.connect(databaseUrl)
+test('Connect to database', t => {
+  mongoose
+    .connect(databaseUrl)
     .then(() => {
       databaseConnected = true;
       t.pass('connected');
@@ -26,13 +27,13 @@ test('Connect to database', (t) => {
       t.pass('dropped');
       t.end();
     })
-    .catch((err) => {
+    .catch(err => {
       t.error(err, 'Error');
       t.end();
     });
 });
 
-test('Insert user - POST /users', (t) => {
+test('Insert user - POST /users', t => {
   if (databaseConnected === false) {
     t.fail('Database not connected');
     t.end();
@@ -48,7 +49,7 @@ test('Insert user - POST /users', (t) => {
       .send(expected)
       .expect(201)
       .expect('Content-Type', /json/)
-      .then((res) => {
+      .then(res => {
         t.pass('inserted');
         user = res.body.data;
         const actual = {
@@ -59,14 +60,14 @@ test('Insert user - POST /users', (t) => {
         t.deepEqual(actual, expected, 'they are equal');
         t.end();
       })
-      .catch((err) => {
+      .catch(err => {
         t.error(err, 'error');
         t.end();
       });
   }
 });
 
-test('Retrieve user by id - GET /users/:id', (t) => {
+test('Retrieve user by id - GET /users/:id', t => {
   if (databaseConnected === false) {
     t.fail('Database not connected');
     t.end();
@@ -75,11 +76,11 @@ test('Retrieve user by id - GET /users/:id', (t) => {
       .get(`/users/${user._id}`)
       .expect(200)
       .expect('Content-Type', /json/)
-      .then((res) => {
+      .then(res => {
         t.equal(res.body.data._id, user._id, 'retrieved');
         t.end();
       })
-      .catch((err) => {
+      .catch(err => {
         t.error(err, 'error');
         t.end();
       });

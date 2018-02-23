@@ -9,20 +9,21 @@ const client = redis.createClient({
   port: REDIS_PORT,
 });
 
-client.on('error', (err) => {
+client.on('error', err => {
   logger.error(err, { dispatcher: loggerDispatcher, from: 'error event' });
 });
 
-const getAsync = key => new Promise((resolve, reject) => {
-  client.get(key, (err, data) => {
-    if (err) {
-      reject(err);
-      logger.error(err, { dispatcher: loggerDispatcher, from: 'getAsync' });
-    }
+const getAsync = key =>
+  new Promise((resolve, reject) => {
+    client.get(key, (err, data) => {
+      if (err) {
+        reject(err);
+        logger.error(err, { dispatcher: loggerDispatcher, from: 'getAsync' });
+      }
 
-    resolve(data);
+      resolve(data);
+    });
   });
-});
 
 module.exports = {
   client,
