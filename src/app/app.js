@@ -6,7 +6,7 @@ const logger = require('../utils/logger');
 const createRequestId = require('../middlewares/create-request-id');
 const log = require('../middlewares/log');
 const db = require('../db');
-const users = require('../routes/users');
+const usersRoute = require('../routes/users');
 
 const loggerDispatcher = 'App';
 
@@ -32,7 +32,7 @@ if (isTest === false) {
 }
 
 // routes
-app.use('/users', users);
+app.use('/users', usersRoute);
 
 // 404 error handler
 app.use((req, res, next) => {
@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 // error handler
 /* eslint-disable no-unused-vars */
 app.use((err, req, res, next) => {
-  console.log('last resoirt', err);
+  console.log('last resort', err);
   const status = parseInt(err.status, 10) || STATUS_INTERNAL_SERVER_ERROR;
   const response = {
     status,

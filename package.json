@@ -13,7 +13,9 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --inspect src/index.js",
     "test": "cross-env NODE_ENV=test tape test/**/*.test.js | tap-spec",
-    "start": "cross-env NODE_ENV=producton src/index.js"
+    "start": "cross-env NODE_ENV=producton src/index.js",
+    "lint": "npm run eslint",
+    "eslint": "eslint src/**"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -40,6 +42,7 @@
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "faucet": "^0.0.1",
+    "jest": "^22.4.2",
     "nodemon": "^1.11.0",
     "supertest": "^3.0.0",
     "tap-spec": "^4.1.1",
