@@ -20,39 +20,26 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.getAll = function userGetAll() {
+userSchema.statics.getAll = async function userGetAll() {
   const Model = this; // not needed if only fat arrows functions are used below
+  let data;
 
-  /* eslint-disable consistent-return */
-  return new Promise((resolve, reject) => {
-    redis
-      .getAsync('users')
-      .then(
-        data => {
-          if (data) {
-            resolve(JSON.parse(data));
-          } else {
-            return Model.find().exec();
-          }
-        },
-        err => {
-          logger.error(err, { dispatcher: loggerDispatcher, from: 'userGetAll' });
-          return Model.find().exec();
-        },
-      )
-      .then(data => {
-        if (data) {
-          resolve(data);
-          return data;
-        }
-      })
-      .then(data => {
-        if (data) {
-          redis.client.set('users', JSON.stringify(data), 'EX', 60);
-        }
-      })
-      .catch(err => reject(err));
-  });
+  try {
+    data = await redis.getAsync('users');
+  } catch (err) {
+    logger.error(err, { dispatcher: loggerDispatcher, from: 'userGetAll' });
+  }
+
+  if (data) return JSON.parse(data);
+  data = await this.find().exec();
+
+  try {
+    redis.client.set('users', JSON.stringify(data), 'EX', 60);
+  } catch (err) {
+    logger.error(err, { dispatcher: loggerDispatcher, from: 'userGetAll' });
+  }
+
+  return data;
 };
 
 const User = mongoose.model('User', userSchema, 'users');
