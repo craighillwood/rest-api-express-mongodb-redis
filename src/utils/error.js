@@ -8,8 +8,13 @@ const makeErrorOperational = (err, status = STATUS_BAD_REQUEST) => {
   return err;
 };
 
+const asyncErrorDecorator = fnc => (req, res, next) => {
+  fnc(req, res, next).catch(err => next(makeErrorOperational(err)));
+};
+
 module.exports = {
   STATUS_BAD_REQUEST,
   STATUS_INTERNAL_SERVER_ERROR,
   makeErrorOperational,
+  asyncErrorDecorator,
 };
