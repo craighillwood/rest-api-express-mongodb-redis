@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.getAll = async function userGetAll() {
-  const Model = this; // not needed if only fat arrows functions are used below
   let data;
 
   try {
