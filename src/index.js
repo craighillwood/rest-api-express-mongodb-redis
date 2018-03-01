@@ -11,6 +11,7 @@ process.on('unhandledRejection', (err, promise) => {
   logger.warn(err, {
     dispatcher: loggerDispatcher,
     from: 'unhandledRejection event',
+    promise,
   });
 });
 
